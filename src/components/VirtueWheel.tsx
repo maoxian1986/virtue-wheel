@@ -7,17 +7,16 @@ const virtues = ['勤劳', '专注', '善良', '开心', '自信', '平和'];
 
 interface WheelProps {
   position: [number, number, number];
-  rotation: number;
   onRotationComplete: (virtue: string) => void;
 }
 
-function Wheel({ position, rotation, onRotationComplete }: WheelProps) {
+function Wheel({ position, onRotationComplete }: WheelProps) {
   const meshRef = useRef<Mesh>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [velocity, setVelocity] = useState(0);
   const [lastPosition, setLastPosition] = useState(0);
   
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (!meshRef.current) return;
     
     if (!isDragging) {
@@ -90,7 +89,6 @@ export function VirtueWheel() {
         <pointLight position={[10, 10, 10]} />
         <Wheel
           position={[0, 0, 0]}
-          rotation={0}
           onRotationComplete={(virtue) => setSelectedVirtue(virtue)}
         />
       </Canvas>
